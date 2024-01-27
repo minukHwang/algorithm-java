@@ -17,12 +17,12 @@ public class Solution {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 
-		int[][] coord = new int[520][520];
-		int[][] num = new int[134941][2];
+		int[][] coord = new int[300][300];
+		int[][] num = new int[45151][2];
 
 		int count = 0;
 
-		for (int y = 1; y < 520; y++) {
+		for (int y = 1; y < 300; y++) {
 			for (int n = 0; n < y; n++) {
 				coord[y - n][n + 1] = ++count;
 				num[count][0] = n + 1;
