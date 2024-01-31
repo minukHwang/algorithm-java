@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 /*
- * 아리스토텔레스의 체로 풀어야함
+ * 에라토스테네스의 체로 풀어야함
  */
 
 public class Solution {
@@ -19,7 +19,7 @@ public class Solution {
 			int a = sc.nextInt();
 			int b = sc.nextInt();
 
-			// 3. 아리스토텔레스의 체로 소수 판별(참조) 배열 만들어주기.
+			// 3. 에라토스테네스의 체로 소수 판별(참조) 배열 만들어주기.
 			boolean[] isNotPrime = primeNumberSieve(b);
 
 			// 4. 최종적으로 조건에 맞는 수의 갯수를 count.
@@ -44,7 +44,7 @@ public class Solution {
 		}
 	}
 
-	// 아리스토텔레스의 체 구현
+	// 에라토스테네스의 체 구현
 	// 시간 복잡도 nloglogn
 	public static boolean[] primeNumberSieve(int num) {
 		// 1. 배열을 만들어서 초기화를 진행한다.
