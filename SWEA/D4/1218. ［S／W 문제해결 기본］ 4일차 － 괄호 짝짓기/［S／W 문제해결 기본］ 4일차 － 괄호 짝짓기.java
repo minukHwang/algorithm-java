@@ -11,6 +11,7 @@ public class Solution {
 			top = -1;
 
 			String input = sc.next();
+			boolean answer = true;
 
 			out: for (int i = 0; i < n; i++) {
 				char letter = input.charAt(i);
@@ -23,7 +24,12 @@ public class Solution {
 				case ')':
 					if (peek() == '(')
 						pop();
+					else if(isEmpty()) {
+						answer = false;
+						break out;
+					}
 					else {
+						answer = false;
 						break out;
 					}
 
@@ -32,7 +38,12 @@ public class Solution {
 				case ']':
 					if (peek() == '[')
 						pop();
+					else if(isEmpty()) {
+						answer = false;
+						break out;
+					}
 					else {
+						answer = false;
 						break out;
 					}
 
@@ -41,7 +52,12 @@ public class Solution {
 				case '}':
 					if (peek() == '{')
 						pop();
+					else if(isEmpty()) {
+						answer = false;
+						break out;
+					}
 					else {
+						answer = false;
 						break out;
 					}
 
@@ -50,7 +66,12 @@ public class Solution {
 				case '>':
 					if (peek() == '<')
 						pop();
+					else if(isEmpty()) {
+						answer = false;
+						break out;
+					}
 					else {
+						answer = false;
 						break out;
 					}
 
@@ -60,8 +81,11 @@ public class Solution {
 				}
 
 			}
+			if(!isEmpty()) {
+				answer = false;
+			}
 			
-			System.out.printf("#%d %d\n", t, isEmpty()? 1 : 0);
+			System.out.printf("#%d %d\n", t, answer? 1 : 0);
 
 		}
 	}
