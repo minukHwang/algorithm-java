@@ -3,6 +3,7 @@
  * 1. 구현을 하기 위해서는 배열, 배열의 start 인덱스, 배열의 end 인덱스가 필요하다.
  * 2. start end를 움직이면서 queue의 기능들을 구현한다.
  * 3. 입력에 맞추어서 출력.
+ * 4. 시간 엄청 빡빡해서 버퍼드로 입력받고 출력해야함.
  */
 
 import java.io.BufferedReader;
@@ -16,7 +17,6 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
 		int n = Integer.parseInt(st.nextToken());
