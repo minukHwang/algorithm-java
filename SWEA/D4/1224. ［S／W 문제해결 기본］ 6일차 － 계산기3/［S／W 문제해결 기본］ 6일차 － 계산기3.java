@@ -5,7 +5,7 @@
  * 3. 입력을 받아서 postfix를 만든다.
  *    *String 스택 활용
  *    1) '(' 연산자가 나오면 무조건 스택에 넣는다.
- *    2) '+' '-' '*' '/' 연산자가 나오면 스택의 마지막 요소의 우선순위가 만약 본인보다 낮거나 같다면 스택에 push
+ *    2) '+' '*'  연산자가 나오면 스택의 마지막 요소의 우선순위가 만약 본인보다 낮거나 같다면 스택에 push
  *    	 만약 본인보다 우선순위가 높다면 우선순위가 낮은 요소가 등장할 때까지 pop해서 postfix에 붙여준다.
  *    3) ')' 연산자가 나오면 '('이 나올때 까지 pop해서 postfix에 넣어준다.
  *    4) 피연산자가 나오면 무조건 postfix에 넣어준다.
@@ -98,17 +98,18 @@ public class Solution {
 						stack2.push(first + second);
 						break;
 
-					case '-':
-						stack2.push(first - second);
-						break;
-
 					case '*':
 						stack2.push(first * second);
 						break;
 
-					case '/':
-						stack2.push(first / second);
-						break;
+					// 사실 문제에서는 + *만 한다고 했으니 생략
+//					case '-':
+//						stack2.push(first - second);
+//						break;
+
+//					case '/':
+//						stack2.push(first / second);
+//						break;
 					}
 				}
 			}
