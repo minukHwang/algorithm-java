@@ -28,9 +28,9 @@ public class Solution {
 
 		priority.put('(', 0);
 		priority.put('+', 1);
-		priority.put('-', 1);
+		// priority.put('-', 1);
 		priority.put('*', 2);
-		priority.put('/', 2);
+		// priority.put('/', 2);
 
 		for (int t = 1; t <= 10; t++) {
 
