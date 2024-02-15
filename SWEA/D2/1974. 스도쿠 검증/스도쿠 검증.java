@@ -1,5 +1,12 @@
+/*
+ * [문제 풀이 과정]
+ * 1. 횡 우선 탐색, 열 우선 탐색, 3*3 우선 탐색 진행
+ * 2. 탐색 진행 시 카운트 배열을 형성하여 숫자들을 카운트
+ * 3. 카운트 > 1이 되는 숫자가 있다면, 수도쿠 fail
+ */
+
 import java.util.Scanner;
- 
+
 class Solution
 {
     public static void main(String args[]) throws Exception
