@@ -9,9 +9,9 @@ public class Solution {
 		Scanner sc = new Scanner(System.in);
 
 		int T = sc.nextInt();
+		StringBuilder sb = new StringBuilder();
 
 		for (int t = 1; t <= T; t++) {
-			StringBuilder sb = new StringBuilder();
 			// StringBuilder로 출력할 문자열 append
 			sb.append("#").append(t);
 
@@ -21,7 +21,7 @@ public class Solution {
 			// heap 초기화
 			// 연산을 n번하면 n번 추가될 가능성이 있으니 n+1
 			// heapSize도 매번 초기화 해주기.
-			heap = new int[1000000];
+			heap = new int[n+1];
 			heapSize = 0;
 
 			for (int i = 0; i < n; i++) {
@@ -36,9 +36,11 @@ public class Solution {
 					sb.append(" ").append(returnNum);
 				}
 			}
-
-			System.out.println(sb.toString());
+			
+			sb.append("\n");
 		}
+		
+		System.out.println(sb.toString());
 	}
 
 	public static void swap(int a, int b) {
