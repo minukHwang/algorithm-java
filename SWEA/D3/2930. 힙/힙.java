@@ -1,7 +1,23 @@
+/*
+ * [문제 풀이 과정]
+ * 1. 힙 배열을 만들고, 힙의 최대 크기를 포인터 변수로 만든다.
+ * 2. heapPush와 heapPop을 구현한다.
+ * 	1) heapPush
+ * 		- 추가된 숫자를 힙 가장 끝으로 넣기
+ * 		- 가장 자식 노드에서 부모 노드와 비교하면서 크기가 자식이 크다면 스왑한다.
+ * 		- 노드가 루트까지 갈 때까지 계속 스왑한다.
+ * 	2) heapPop
+ * 		- 루트 노드의 값을 빼서 리턴한다.
+ * 		- 가장 마지막 노드를 루트 노드로 넣고 최상단부터 자식과 크기를 비교하여 자식이 크다면 스왑한다.
+ * 		- 자식 노드 왼쪽 오른쪽을 비교하여 더 큰 쪽 자식으로 스왑하도록 한다.
+ * 3. 연산 번호를 입력받고 해당 연산에 따라서 결과값을 출력한다. (StringBuilder 활용)
+ */
+
 import java.util.Scanner;
 
 public class Solution {
 
+	// heap배열 선언하기
 	static int[] heap;
 	static int heapSize;
 
@@ -10,7 +26,7 @@ public class Solution {
 
 		int T = sc.nextInt();
 		StringBuilder sb = new StringBuilder();
-
+		
 		for (int t = 1; t <= T; t++) {
 			// StringBuilder로 출력할 문자열 append
 			sb.append("#").append(t);
@@ -27,20 +43,22 @@ public class Solution {
 			for (int i = 0; i < n; i++) {
 				int cal = sc.nextInt();
 
+				// 1이면 push
 				if (cal == 1) {
 					int num = sc.nextInt();
 					heapPush(num);
 
+					// 2면 pop
 				} else if (cal == 2) {
 					int returnNum = heapPop();
 					sb.append(" ").append(returnNum);
 				}
 			}
 			
-			sb.append("\n");
+			System.out.println(sb.toString());
+			sb.setLength(0);
 		}
 		
-		System.out.println(sb.toString());
 	}
 
 	public static void swap(int a, int b) {
