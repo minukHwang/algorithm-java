@@ -1,121 +1,81 @@
+/*
+ * [문제 풀이 과정]
+ * 1. 깃발에 대한 정보 받아오기
+ * 2. 파란색의 시작점을 1~N-1까지, 빨간색의 시작점을 파란색 시작점 + 1 ~ 끝 - 1로 하여 반복문 탐색하기 
+ * 	- 분절점을 완점 탐색해서 조합을 구하면 문제 해결 가능.
+ * 3. 각각의 분절에 맞게 깃발을 탐색하며, 더 칠해야하는 부분 카운트
+ * 4. 최소값을 비교하며 찾기.
+ * 5. 출력
+ */
+
 import java.util.Scanner;
 
 public class Solution {
-
-	// 백트래킹을 위한 static 변수.
-	static int N, M;
-	static int[] selected;
-	static boolean[] visited;
-	
-	// 깃발 색깔을 위한 static 변수.
-	static int[][] colorCount;
-	static int row;
-	static int col;
-	static int minCount;
-
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 
 		int T = sc.nextInt();
 
 		for (int t = 1; t <= T; t++) {
-			row = sc.nextInt();
-			col = sc.nextInt();
+			int N = sc.nextInt();
+			int M = sc.nextInt();
 
-			// 깃발 데이터 받기
-			char[][] flag = new char[row+1][col];
-			colorCount = new int[row+1][3];
+			// 깃발 정보 입력
+			char[][] flag = new char[N][M];
 
-			for (int i = 1; i < row+1; i++) {
-				flag[i] = sc.next().toCharArray();
-			}
-
-			// 각 줄의 색깔 갯수 카운트하기
-			for (int i = 1; i < row+1; i++) {
-				for (int j = 0; j < col; j++) {
-					switch (flag[i][j]) {
-					case 'W':
-						colorCount[i][0]++;
-						break;
-
-					case 'B':
-						colorCount[i][1]++;
-						break;
-
-					case 'R':
-						colorCount[i][2]++;
-						break;
-					}
+			for (int r = 0; r < N; r++) {
+				char[] str = sc.next().toCharArray();
+				for (int c = 0; c < M; c++) {
+					flag[r][c] = str[c];
 				}
 			}
-			
-			
+
 			// 최소를 구하는 문제이므로 처음에 큰 값을 넣어주어야한다.
 			// 문제의 최악의 케이스는 모든 색을 바꾸는 것이니, row*col+1로 설정
-			minCount = row*col+1; 
-			
-			// 1~ row까지를 2가지 숫자를 선택한다. (분절점)
-			M = 2;
-			N = row;
-			
-			// 선택된 숫자들을 담을 배열
-			selected = new int[M];
-			// 이미 방문한 요소인지 아닌지를 체크하기 위한 배열
-			visited = new boolean[N + 1];
-			
+			int minCount = N * M + 1;
 
-			// 백트래킹 재귀.
-			backtrack(2, 0);
-			System.out.printf("#%d %d\n",t,minCount);
-		}
-	}
+			
+			for (int blueStart = 1; blueStart < N - 1; blueStart++) {
+				for (int redStart = blueStart + 1; redStart < N; redStart++) {
 
-	static void backtrack(int start, int depth) {
-		if (depth == M) {
-			// 깃발 갯수 탐색을 위한 변수
-			// 이렇게 진행하면 1~ row까지를 2가지 숫자를 선택하여 1세트 완성
-			// [2,3] -> white는 1번줄만, blue는 2번줄, red는 3~끝까지
-			// [4,7] -> white는 1~3번줄, blue는 4~6, red는 7~끝까지
-			
-			int count = 0;
-			
-			// 흰색 칠해야하는 부분 카운트
-			for(int w = 1; w < selected[0]; w++) {
-				count += col - colorCount[w][0];
-			}
-			
-			// 파란색 칠해야하는 부분 카운트
-			for(int b = selected[0]; b < selected[1]; b++) {
-				
-				count += col - colorCount[b][1];
-			}
-			
-			// 빨간색 칠해야하는 부분 카운트
-			for(int r = selected[1]; r <= row; r++) {
-				count += col - colorCount[r][2];
-			}
-			
-			// 최소값 구하기
-			if(count < minCount) {
-				minCount = count;
-			}
-			
-			return;
-		}
+					int count = 0;
+					
+					// 흰색: 칠해야하는 칸 계산
+					for (int whiteRow = 0; whiteRow < blueStart; whiteRow++) {
+						for (int col = 0; col < M; col++) {
+							if (flag[whiteRow][col] != 'W') {
+								count++;
+							}
+						}
+					}
 
-		// 시작부터 숫자 전체 크기까지 탐색
-		for (int i = start; i <= N; i++) {
-			// 만약 방문하지 않은 숫자(노드)라면,
-			if (!visited[i]) {
-				// 해당 숫자 방문 처리
-				visited[i] = true;
-				// 해당 숫자 선택 배열에 추가
-				selected[depth] = i;
-				// 다음으로 넘어가기 (트리로 구상하면, 자식으로 가면서, 방문한 숫자 외의 숫자로.)
-				backtrack(i + 1, depth + 1);
-				// 다시 부모로 올라오면, 방문 false
-				visited[i] = false;
+					// 파란색: 칠해야하는 칸 계산
+					for (int blueRow = blueStart; blueRow < redStart; blueRow++) {
+						for (int col = 0; col < M; col++) {
+							if (flag[blueRow][col] != 'B') {
+								count++;
+							}
+						}
+					}
+
+					// 빨간색: 칠해야하는 칸 계산
+					for (int redRow = redStart; redRow < N; redRow++) {
+						for (int col = 0; col < M; col++) {
+							if (flag[redRow][col] != 'R') {
+								count++;
+							}
+						}
+					}
+
+					if (count < minCount) {
+						minCount = count;
+					}
+
+				}
 			}
+
+			System.out.printf("#%d %d\n", t, minCount);
+
 		}
 	}
 }
