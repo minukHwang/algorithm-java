@@ -3,7 +3,10 @@ import java.util.Arrays;
 /*
  * [문제 풀이 과정]
  * - 식재료드을 각각 N/2개씩 나누어서 요리를 한다고 하였으니 전체 N개 중에 N/2의 조합을 구하는 문제
- * 1. 조합 구하기 
+ * 1. 조합 구하기 (selected에 true/false 표시)
+ * 2. 구해진 N/2 조합을 만약 true라면 foodA로 2차원 배열에서 합 구하기, false면 foodB로 2차원 배열에서 합 구하기
+ * 3. 합의 차의 최소값 판별하기.
+ * 
  */
 
 import java.util.Scanner;
