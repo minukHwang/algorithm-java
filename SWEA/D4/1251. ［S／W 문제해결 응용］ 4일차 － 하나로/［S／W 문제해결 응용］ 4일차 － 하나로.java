@@ -2,7 +2,7 @@
  * [문제 풀이 과정]
  * *크루스칼 알고리즘 구현*
  * 1. 정점의 정보들을 먼저 입력 받는다.
- * 2. 순열을 활용하여 간선들을 구하고 이를 리스트에 넣는다.
+ * 2. 조합을 활용하여 간선들을 구하고 이를 리스트에 넣는다.
  * 
  * -------크루스칼---------
  * 3. 리스트를 간선의 정보 중 거리를 기준으로 정렬한다.
@@ -13,6 +13,7 @@
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -106,12 +107,13 @@ public class Solution {
 				vertices[i].y = y;
 			}
 
-			// 2차원 배열써도 무방하지만, 순열로 2개 정점 구해서 간선 리스트에 추가하기
+			// 2차원 배열써도 무방하지만, 조합으로 2개 정점 구해서 간선 리스트에 추가하기
+			// 같은 두 정점을 연결하는 간선을 중복해서 고려할 필요가 없음.
 			visited = new boolean[N];
 			selected = new Vertex[2];
 			edges = new ArrayList<>();
 
-			perm(0, 0);
+			com(0, 0);
 
 			cost = sc.nextDouble();
 
@@ -182,18 +184,20 @@ public class Solution {
 		return p[x];
 	}
 
-	public static void perm(int start, int depth) {
+	// 조합 구하는 메소드
+	public static void com(int start, int depth) {
 		if (depth == 2) {
+			// 2개의 정점 구하면 간선 리스트에 추가
 			Edge edge = new Edge(selected[0], selected[1]);
 			edges.add(edge);
 			return;
 		}
 
-		for (int i = 0; i < N; i++) {
+		for (int i = start; i < N; i++) {
 			if (!visited[i]) {
 				visited[i] = true;
 				selected[depth] = vertices[i];
-				perm(i + 1, depth + 1);
+				com(i + 1, depth + 1);
 				visited[i] = false;
 			}
 		}
