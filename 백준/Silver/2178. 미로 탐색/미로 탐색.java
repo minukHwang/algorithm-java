@@ -1,4 +1,3 @@
-
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -60,7 +59,7 @@ public class Main {
 	private static void bfs(int r, int c, int count) {
 		visited[r][c] = true;
 		queue = new LinkedList<>();
-		queue.add(new Coord(r, c, 1));
+		queue.add(new Coord(r, c, count));
 		
 		while(!queue.isEmpty()) {
 //			System.out.println(queue);
