@@ -26,29 +26,24 @@ public class Main {
 		long left = 0;
 		long right = 1000000000;
 		long maxHeight = 0;
-		
-//		System.out.println(right);
+
 		
 		while(left <= right) {
 			long mid = (left + right) / 2;
-			long totalHeight = getTotalHeight(mid);
-//			System.out.println("left: " + left + " right: " + right + " mid: " + mid + " totalHeight: " + totalHeight + " maxHeight: " + maxHeight);
-			
-			if(totalHeight >= M) {
+
+			if(isAvailableHeight(mid)) {
 				left = mid + 1;
 				maxHeight = mid;
 			} else {
 				right = mid - 1;
 			}
 			
-//			System.out.println("left: " + left + " right: " + right + " mid: " + mid + " totalHeight: " + totalHeight + " maxHeight: " + maxHeight);
-//			System.out.println();
 		}
 		
 		return maxHeight;
 	}
 	
-	public static long getTotalHeight(long height) {
+	public static boolean isAvailableHeight(long height) {
 		long totalHeight = 0;
 		
 		for(int i = 0; i < N; i++) {
@@ -59,6 +54,6 @@ public class Main {
 			}
 		}
 		
-		return totalHeight;
+		return totalHeight >= M;
 	}
 }
