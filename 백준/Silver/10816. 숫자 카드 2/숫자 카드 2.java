@@ -1,3 +1,5 @@
+
+
 import java.util.*;
 import java.io.*;
 
@@ -7,58 +9,69 @@ public class Main {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		
 		int N = Integer.parseInt(br.readLine());
-		
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		
-		Map<Integer, Integer> cards = new TreeMap<>();
+		int[] cards = new int[N];
 		
 		for(int i = 0; i < N; i++) {
-			int number = Integer.parseInt(st.nextToken());
-			
-			if(cards.containsKey(number)) {
-				int count = cards.get(number);
-				cards.put(number, count + 1);
-			} else {
-				cards.put(number, 1);
-			}
+			cards[i] = Integer.parseInt(st.nextToken());
 		}
 		
-		List<Integer> arr = new ArrayList<>(cards.keySet());
+		Arrays.sort(cards);
+		
 		
 		int M = Integer.parseInt(br.readLine());
-		
 		st = new StringTokenizer(br.readLine());
 		
 		for(int i = 0; i < M; i++) {
 			int number = Integer.parseInt(st.nextToken());
-			int count = getCount(arr, number, cards);
-			
-			bw.write(count + " ");
+			int lowerBound = getLowerBound(cards, number);
+			int upperBound = getUpperBound(cards, number);
+			bw.write((upperBound - lowerBound) + " ");
 		}
 		
 		bw.flush();
 	}
-	
-	public static int getCount(List<Integer> arr, int number, Map<Integer, Integer> cards) {
+
+	private static int getLowerBound(int[] arr, int number) {
+		// 처음으로 number 이상이 되는 index
+		int lowerBound = arr.length;
+		
 		int left = 0;
-		int right = arr.size() - 1;
+		int right = arr.length - 1;
 		
 		while(left <= right) {
 			int mid = (left + right) / 2;
 			
-			if(number > arr.get(mid)) {
+			if(number > arr[mid]) {
 				left = mid + 1;
-			}
-			
-			else if (number < arr.get(mid)) {
+			} else {
+				lowerBound = mid;
 				right = mid - 1;
-			}
-			
-			else {
-				return cards.get(arr.get(mid));
 			}
 		}
 		
-		return 0;
+		return lowerBound;
 	}
+	
+	private static int getUpperBound(int[] arr, int number) {
+		// 처음으로 number 초과가 되는 index
+		int upperBound = arr.length;
+		
+		int left = 0;
+		int right = arr.length - 1;
+		
+		while(left <= right) {
+			int mid = (left + right) / 2;
+			
+			if(number >= arr[mid]) {
+				left = mid + 1;
+			} else {
+				upperBound = mid;
+				right = mid - 1;
+			}
+		}
+		
+		return upperBound;
+	}
+	
 }
